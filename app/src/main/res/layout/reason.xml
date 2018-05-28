@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <!-- <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Hello World!"
+         android:id="@+id/textView" />
+
+     <Button
+         android:text="Button"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/textView"
+         android:layout_toRightOf="@+id/textView"
+         android:layout_toEndOf="@+id/textView"
+         android:layout_marginLeft="37dp"
+         android:layout_marginStart="37dp"
+         android:layout_marginTop="42dp"
+         android:id="@+id/button" />
+
+
+     <Button
+         android:text="History"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="15dp"
+         android:id="@+id/button2"
+         android:layout_alignTop="@+id/button"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentEnd="true"
+         android:layout_marginRight="28dp"
+         android:layout_marginEnd="28dp" />-->
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/code48"
+        android:background="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="117dp"
+        android:tag="coding"
+        android:id="@+id/coding" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/friends48"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/coding"
+        android:layout_toRightOf="@+id/coding"
+        android:layout_toEndOf="@+id/coding"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:tag="friends"
+        android:id="@+id/friends" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/headphones48"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/friends"
+        android:layout_toRightOf="@+id/friends"
+        android:layout_toEndOf="@+id/friends"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:tag="headphones"
+        android:id="@+id/headphones" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/yoga48"
+        android:layout_alignTop="@+id/headphones"
+        android:background="@android:color/transparent"
+        android:layout_toRightOf="@+id/headphones"
+        android:layout_toEndOf="@+id/headphones"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:tag="yoga"
+        android:id="@+id/yoga" />
+
+    <TextView
+        android:text="coding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/coding"
+        android:layout_alignLeft="@+id/coding"
+        android:layout_alignStart="@+id/coding"
+        android:id="@+id/codingtext" />
+
+    <TextView
+        android:text="friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/friends"
+        android:layout_alignLeft="@+id/friends"
+        android:layout_alignStart="@+id/friends"
+        android:id="@+id/friendstext" />
+
+    <TextView
+        android:text="songs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headphones"
+        android:layout_alignLeft="@+id/headphones"
+        android:layout_alignStart="@+id/headphones"
+        android:id="@+id/headphonestext" />
+
+    <TextView
+        android:text="yoga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/yogatext"
+        android:layout_below="@+id/yoga"
+        android:layout_alignRight="@+id/yoga"
+        android:layout_alignEnd="@+id/yoga" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/sleep48"
+        android:layout_below="@+id/codingtext"
+        android:background="@android:color/transparent"
+        android:layout_alignLeft="@+id/codingtext"
+        android:layout_alignStart="@+id/codingtext"
+        android:layout_marginTop="41dp"
+        android:tag="sleep"
+        android:id="@+id/sleep" />
+
+    <TextView
+        android:text="sleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/sleep"
+        android:layout_alignLeft="@+id/sleep"
+        android:layout_alignStart="@+id/sleep" />
+
+    <Button
+        android:text="Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/yoga"
+        android:layout_alignStart="@+id/yoga"
+        android:id="@+id/done" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/movie48"
+        android:background="@android:color/transparent"
+        android:layout_alignBottom="@+id/sleep"
+        android:layout_toLeftOf="@+id/headphones"
+        android:layout_toStartOf="@+id/headphones"
+        android:tag="movie"
+        android:id="@+id/movie" />
+
+    <TextView
+        android:text="movie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView5"
+        android:layout_alignLeft="@+id/movie"
+        android:layout_alignStart="@+id/movie"
+        android:id="@+id/movietext" />
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:hint="anything to add..."
+        android:id="@+id/comments"
+        android:layout_above="@+id/done"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/attachment48"
+        android:layout_below="@+id/comments"
+        android:background="@android:color/transparent"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5"
+        android:id="@+id/attachment" />
+</RelativeLayout>

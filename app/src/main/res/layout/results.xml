@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/meh48"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="27dp"
+        android:id="@+id/emotion"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/emotion"
+        android:layout_toRightOf="@+id/emotion"
+        android:layout_toEndOf="@+id/emotion"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp"
+        android:id="@+id/reason" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emotion"
+        android:layout_alignLeft="@+id/emotion"
+        android:layout_alignStart="@+id/emotion"
+        android:layout_marginTop="28dp"
+        android:id="@+id/datetime" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_below="@+id/datetime"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="99dp"
+        android:id="@+id/memoryimage" />
+</RelativeLayout>
