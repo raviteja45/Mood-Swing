@@ -76,7 +76,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(CREATE_CONTACTS_TABLE);
         ArrayList<TaskHolder> moodList = new ArrayList<TaskHolder>();
-        String selectQuery = "SELECT  * FROM MoodTracker";
+        String selectQuery = "SELECT  * FROM MoodTracker ORDER BY date DESC";
         SQLiteDatabase db1 = this.getWritableDatabase();
         System.out.println(db1.getPath());
         Cursor cursor = db1.rawQuery(selectQuery, null);
