@@ -56,7 +56,14 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put("mood",taskHolder.getMood());
         values.put("date", taskHolder.getDate());
         values.put("time", taskHolder.getTime());
-        values.put("attachment",taskHolder.getAttachment());
+        if(taskHolder.getAttachment()!=null&&!taskHolder.getAttachment().isEmpty()){
+            JSONArray json1 = new JSONArray();
+            json1.put(taskHolder.getAttachment());
+            values.put("attachment",json1.toString());
+        }
+        else{
+
+        }
         JSONArray json = new JSONArray();
         json.put(taskHolder.getReason());
         values.put("reason", json.toString());
@@ -83,17 +90,26 @@ public class DbHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 TaskHolder bean = new TaskHolder();
-                bean.setMood(cursor.getString(0));
-                JSONArray json = new JSONArray(cursor.getString(1));
+                bean.setMood(cursor.getString(cursor.getColumnIndex("mood")));
+                JSONArray json = new JSONArray(cursor.getString(cursor.getColumnIndex("reason")));
                 List<String> arrayList = new ArrayList<>();
                 for(int i=0;i<json.length();i++){
                       arrayList.add(json.getString(i));
                 }
                 bean.setReason(arrayList);
-                bean.setDate(cursor.getString(2));
-                bean.setTime(cursor.getString(3));
-                bean.setAttachment(cursor.getString(4));
-                bean.setComments(cursor.getString(5));
+                bean.setDate(cursor.getString(cursor.getColumnIndex("date")));
+                bean.setTime(cursor.getString(cursor.getColumnIndex("time")));
+              //  bean.setAttachment(cursor.getString(4));
+                if(cursor.getString(cursor.getColumnIndex("attachment"))!=null){
+                    JSONArray json1 = new JSONArray(cursor.getString(cursor.getColumnIndex("attachment")));
+                    List<String> arrayList1 = new ArrayList<>();
+                    for(int i=0;json1!=null&&i<json1.length();i++){
+                        arrayList1.add(json1.getString(i));
+                    }
+                    bean.setAttachment(arrayList1);
+                }
+
+                bean.setComments(cursor.getString(cursor.getColumnIndex("comments")));
                 moodList.add(bean);
             } while (cursor.moveToNext());
         }

@@ -27,7 +27,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObject
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder {
         TextView tv1, tv2,tv3;
-        ImageView img1,images;
+        ImageView img1;
 
         public DataObjectHolder(View v) {
             super(v);
@@ -35,7 +35,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObject
             tv2 = (TextView) v.findViewById(R.id.mood);
             tv3 = (TextView) v.findViewById(R.id.datetime);
             img1 = (ImageView)v.findViewById(R.id.imageView);
-            images = (ImageView)v.findViewById(R.id.images);
+            //images = (ImageView)v.findViewById(R.id.images);
             /*v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -92,7 +92,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObject
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mDataset.get(position).getAttachment()!=null){
+                if(mDataset.get(position).getAttachment()!=null&&!mDataset.get(position).getAttachment().isEmpty()&&!mDataset.get(position).getAttachment().contains("default")){
                     Intent intent = new Intent(view.getContext(),ImageAttachement.class);
                     intent.putExtra("Object", mDataset.get(position));
                     view.getContext().startActivity(intent);

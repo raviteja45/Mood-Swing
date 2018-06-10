@@ -19,7 +19,7 @@ public class TaskHolder implements Serializable{
     }
 
 
-    public String getAttachment() {
+    public List<String> getAttachment() {
         return attachment;
     }
 
@@ -31,7 +31,7 @@ public class TaskHolder implements Serializable{
         this.reason = reason;
     }
 
-    public void setAttachment(String attachment) {
+    public void setAttachment(List<String> attachment) {
         this.attachment = attachment;
     }
 
@@ -56,7 +56,7 @@ public class TaskHolder implements Serializable{
    List<String> reason;
    String date;
    String time;
-   String attachment;
+   List<String> attachment;
 
     public String getComments() {
         return comments;

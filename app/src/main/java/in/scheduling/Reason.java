@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -56,13 +58,56 @@ public class Reason extends AppCompatActivity implements View.OnClickListener {
         done = (Button)findViewById(R.id.done);
         db = new DbHelper(this);
         Intent intent = getIntent();
-        taskHolder = (TaskHolder) intent.getExtras().get("Object");
+        RelativeLayout rl = (RelativeLayout)findViewById(R.id.res);
+        if((TaskHolder) intent.getExtras().get("ImageArray")!=null){
+            taskHolder = (TaskHolder) intent.getExtras().get("ImageArray");
+        }
+        else{
+            taskHolder = (TaskHolder) intent.getExtras().get("Object");
+        }
+        if(taskHolder.getReason()!=null&&!taskHolder.getReason().isEmpty()){
+            allList = taskHolder.getReason();
+        }
+        if(taskHolder!=null&&taskHolder.getReason()!=null&&!taskHolder.getReason().isEmpty()){
+                for(int i=0;i<rl.getChildCount();i++){
+                    View v = rl.getChildAt(i);
+                    if(v instanceof ImageView){
+                        ImageView img= (ImageView)findViewById(v.getId());
+                        if (img.getTag()!=null&&!img.getTag().toString().equalsIgnoreCase("attac")&&!taskHolder.getReason().isEmpty() && taskHolder.getReason().contains(img.getTag().toString())) {
+                            img.setBackgroundColor(Color.parseColor("#FFFF00"));
+                        }
+                       else{
+                            img.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+                        }
+                    }
+
+
+                }
+
+          //  }
+        }
         attachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, 2);
+               /* Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image*//*");
+                startActivityForResult(intent, 2);*/
+               /* setContentView(R.layout.gallery);
+                initViews();
+                setListeners();
+                fetchGalleryImages();
+                setUpGridView();
+                System.out.println("awesome "+imagesAdapter.getCheckedItems().get(0));*/
+                Intent intent = new Intent(view.getContext(),Gallery.class);
+                intent.putExtra("Object", taskHolder);
+                finish();
+                startActivity(intent);
+                /*if(intent.getExtras().get("ImageArray")!=null){
+                    List<String> oooo = (ArrayList<String>)intent.getExtras().get("ImageArray");
+                    System.out.println("Selected ones are "+oooo);
+                }*/
+
             }
         });
 
@@ -70,11 +115,15 @@ public class Reason extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 try {
-                    taskHolder.setReason(allList);
+                   // System.out.println("Out value is "+((Gallery) view.getContext()).showSelectButton());
                     taskHolder.setComments(comments.getText().toString());
                     if(imagesUri!=null){
-                        taskHolder.setAttachment(imagesUri.toString());
+                       // taskHolder.setAttachment(imagesUri.toString());
+                       // taskHolder.setAttachment();
                     }
+                    System.out.println("Before insertion");
+                    System.out.println("All values are Attachment "+taskHolder.getAttachment()+"Moods are "+taskHolder.getMood()+"Reason "+taskHolder.getReason());
+                    System.out.println("End of insertion");
                     db.insertRecords(taskHolder);
                 } catch (JSONException e) {
                 }
@@ -84,7 +133,7 @@ public class Reason extends AppCompatActivity implements View.OnClickListener {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                for(TaskHolder m1:moodList) {
+               /* for(TaskHolder m1:moodList) {
                     System.out.println("Mood is " + m1.getMood());
                     System.out.println("Date is " + m1.getDate());
                     System.out.println("Time is " + m1.getTime());
@@ -92,7 +141,7 @@ public class Reason extends AppCompatActivity implements View.OnClickListener {
                     System.out.println("Comments are "+m1.getComments());
                     System.out.println("URI is "+m1.getAttachment());
                     //Toast.makeText(view.getContext(),"Here is ",Toast.LENGTH_LONG).show();
-                }
+                }*/
                 System.out.println("Total records are "+allList);
             }
         });
@@ -100,12 +149,14 @@ public class Reason extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==2){
-            imagesUri = data.getData();
-           /* String[] path = { MediaStore.Images.Media.DATA };
+        if(requestCode==3){
+           // imagesUri = data.getData();
+            String homu = data.getStringExtra("keyName");
+            System.out.println("Vaues ire "+homu);
+           *//* String[] path = { MediaStore.Images.Media.DATA };
             Cursor cursor = getContentResolver().query(imagesUri,
                     path, null, null, null);
             cursor.moveToFirst();
@@ -115,23 +166,26 @@ public class Reason extends AppCompatActivity implements View.OnClickListener {
             cursor.close();
             ImageView imgView = (ImageView) findViewById(R.id.imgView);
             imgView.setImageBitmap(BitmapFactory
-                    .decodeFile(imgDecodableString));*/
+                    .decodeFile(imgDecodableString));*//*
 
         }
-    }
+        if(requestCode==3){
+
+        }
+    }*/
     @Override
     public void onClick(View view) {
 
         ImageView img= (ImageView)findViewById(view.getId());
         if (!allList.isEmpty() && allList.contains(img.getTag().toString())) {
             allList.remove(img.getTag().toString());
-            img.setBackgroundColor(Color.parseColor("#55FF0000"));
+            img.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         }
         else{
             allList.add(img.getTag().toString());
             img.setBackgroundColor(Color.parseColor("#FFFF00"));
 
         }
-
+        taskHolder.setReason(allList);
     }
 }
