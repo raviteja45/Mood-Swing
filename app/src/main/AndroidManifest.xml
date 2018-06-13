@@ -12,7 +12,8 @@
         android:name=".MyApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,10 +28,10 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
-        <activity android:name=".Reason"></activity>
-        <activity android:name=".Stat"></activity>
-        <activity android:name=".Gallery"></activity>
-        <activity android:name=".ImageAttachement"></activity>
+        <activity android:name=".Reason" android:screenOrientation="portrait"></activity>
+        <activity android:name=".Stat" android:screenOrientation="portrait"></activity>
+        <activity android:name=".Gallery" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ImageAttachement" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

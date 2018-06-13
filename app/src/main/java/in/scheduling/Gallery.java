@@ -117,5 +117,11 @@ public class Gallery extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,Reason.class);
+        intent.putExtra("ImageArray", taskHolder);
+        finish();
+        startActivity(intent);
+    }
 }

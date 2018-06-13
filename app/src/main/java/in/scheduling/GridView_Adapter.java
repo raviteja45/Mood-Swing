@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -70,7 +71,7 @@ public class GridView_Adapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (view == null)
             view = inflater.inflate(R.layout.customgridview, viewGroup, false);//Inflate layout
@@ -87,6 +88,12 @@ public class GridView_Adapter extends BaseAdapter {
         mCheckBox.setTag(position);//Set Tag for CheckBox
         mCheckBox.setChecked(mSparseBooleanArray.get(position));
         mCheckBox.setOnCheckedChangeListener(mCheckedChangeListener);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(),"Clicked on image "+imageUrls.get(position),Toast.LENGTH_LONG).show();
+            }
+        });
         return view;
     }
 
