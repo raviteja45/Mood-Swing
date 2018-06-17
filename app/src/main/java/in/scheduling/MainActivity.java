@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import org.json.JSONException;
 
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.DateFormatSymbols;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,8 +27,11 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     DbHelper db = null;
-    ImageButton happy,sad,meh,excited;
-    Button date,time,stat;
+    ImageButton happy,sad,meh,excited,stat,sick;
+    //Button date,time,stat;
+    //Button stat;
+    TextView date,time;
+    String dateValue;
     TaskHolder taskHolder =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +45,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         meh.setOnClickListener(this);
         excited = (ImageButton)findViewById(R.id.excited);
         excited.setOnClickListener(this);
-        date = (Button)findViewById(R.id.date);
-        time=(Button)findViewById(R.id.time);
-        stat = (Button)findViewById(R.id.stat);
+        date = (TextView) findViewById(R.id.date);
+        time=(TextView)findViewById(R.id.time);
+        stat = (ImageButton) findViewById(R.id.stat);
+        sick = (ImageButton) findViewById(R.id.sick);
+        sick.setOnClickListener(this);
         db = new DbHelper(this);
         stat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     System.out.println("Reason is " + m1.getReason());
                     System.out.println("Comments are "+m1.getComments());
                     System.out.println("URI is "+m1.getAttachment());
+                    System.out.println("ID "+m1.getId());
                     //Toast.makeText(view.getContext(),"Here is ",Toast.LENGTH_LONG).show();
                 }
 
@@ -83,65 +91,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         db = new DbHelper(this);
 
         if(date.getText()!=null&&date.getText().toString().equalsIgnoreCase("Date")){
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+            DateFormat df = new SimpleDateFormat("dd MMM, yyyy");
+            DateFormat df1 = new SimpleDateFormat("MM/dd/yyyy");
             String currentDate = df.format(Calendar.getInstance().getTime());
             date.setText(currentDate);
+            dateValue = df1.format(Calendar.getInstance().getTime());;
         }
         if(time.getText()!=null&&time.getText().toString().equalsIgnoreCase("Time")){
             DateFormat df = new SimpleDateFormat("h:mm a");
             String currentDate = df.format(Calendar.getInstance().getTime());
             time.setText(currentDate);
         }
-        /*happy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<TaskHolder> moodList =  db.getHistory();
-                for(TaskHolder m1:moodList) {
-                    System.out.println("Mood is " + m1.getMood());
-                    System.out.println("Date is " + m1.getDate());
-                    System.out.println("Time is " + m1.getTime());
-                    System.out.println("Reason is " + m1.getReason());
-                    Toast.makeText(view.getContext(),"Here is ",Toast.LENGTH_LONG).show();
-                }
-            }
-        });*/
-
-       /* bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-                String dateValue = date.format(new Date());
-                SimpleDateFormat time = new SimpleDateFormat("h:mm a");
-                String timeValue = time.format(new Date());
-                TaskHolder taskHolder = new TaskHolder();
-                taskHolder.setDate(dateValue);
-                taskHolder.setTime(timeValue);
-                taskHolder.setMood("Sad");
-                taskHolder.setReason("Chatting");
-                db.insertRecords(taskHolder);
-
-            }
-        });*/
-
-       /* bt1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<TaskHolder> moodList =  db.getHistory();
-                for(TaskHolder m1:moodList){
-                    System.out.println("Mood is "+m1.getMood());
-                    System.out.println("Date is "+m1.getDate());
-                    System.out.println("Time is "+m1.getTime());
-                    System.out.println("Reason is "+m1.getReason());
-                }
-            }
-        });*/
     }
 
     @Override
     public void onClick(View view) {
         taskHolder = new TaskHolder();
-        taskHolder.setDate(date.getText().toString());
+        //taskHolder.setDate(date.getText().toString());
+        taskHolder.setDate(dateValue);
         taskHolder.setTime(time.getText().toString());
         Intent intent = new Intent(this,Reason.class);
 
@@ -170,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("Object", taskHolder);
                 startActivity(intent);
                 break;
+            case R.id.sick:
+                taskHolder.setMood("sick");
+                intent.putExtra("Object", taskHolder);
+                startActivity(intent);
         }
 
 
@@ -203,8 +174,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            String date1 = String.valueOf(month) + "/" + String.valueOf(day)
+            DateFormat df = new SimpleDateFormat("dd MMM, yyyy");
+            String monthValue = new DateFormatSymbols().getMonths()[month];
+            dateValue = String.valueOf(month) + "/" + String.valueOf(day)
                     + "/" + String.valueOf(year);
+
+            String date1 = String.valueOf(day)+" "+monthValue+","+String.valueOf(year);
             date.setText(date1);
             Toast.makeText(view.getContext(),"Date is "+date1,Toast.LENGTH_SHORT).show();
         }

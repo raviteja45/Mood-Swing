@@ -24,6 +24,8 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObjectHolder> {
     private ArrayList<TaskHolder> mDataset;
     private String flagValue;
+    DbHelper db = null;
+
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder {
         TextView tv1, tv2,tv3;
@@ -35,13 +37,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObject
             tv2 = (TextView) v.findViewById(R.id.mood);
             tv3 = (TextView) v.findViewById(R.id.datetime);
             img1 = (ImageView)v.findViewById(R.id.imageView);
-            //images = (ImageView)v.findViewById(R.id.images);
-            /*v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(),"Clicked on it "+view,Toast.LENGTH_SHORT).show();
-                }
-            });*/
+
         }
 
     }
@@ -63,7 +59,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObject
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.results, parent, false);
 
-
+        db = new DbHelper(view.getContext());
         DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
         return dataObjectHolder;
     }
@@ -86,6 +82,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObject
             case "meh":
                 holder.img1.setImageResource(R.drawable.meh48);
                 break;
+            case "sick":
+                holder.img1.setImageResource(R.drawable.sick48);
         }
         holder.tv2.setText(mDataset.get(position).getMood());
         holder.tv3.setText(mDataset.get(position).getDate()+" "+mDataset.get(position).getTime());
@@ -96,8 +94,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DataObject
                     Intent intent = new Intent(view.getContext(),ImageAttachement.class);
                     intent.putExtra("Object", mDataset.get(position));
                     view.getContext().startActivity(intent);
-                    Toast.makeText(view.getContext(),"Clicked on it "+mDataset.get(position).getMood(),Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(view.getContext(),"Clicked on it "+mDataset.get(position).getMood(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                boolean result = db.deleteItem(mDataset.get(position));
+                mDataset.remove(position);
+                notifyItemRemoved(position);
+
+                notifyItemRangeChanged(position,mDataset.size());
+
+                Toast.makeText(view.getContext(),"Long pressed on..."+mDataset.get(position).getMood()+" "+mDataset.get(position).getId()+" result "+result,Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
     }

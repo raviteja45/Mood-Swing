@@ -53,10 +53,21 @@ public class TaskHolder implements Serializable{
     }
 
    String mood;
-   List<String> reason;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    List<String> reason;
    String date;
    String time;
    List<String> attachment;
+   int id;
+
 
     public String getComments() {
         return comments;

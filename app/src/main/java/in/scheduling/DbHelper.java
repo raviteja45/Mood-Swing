@@ -49,7 +49,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public boolean insertRecords(TaskHolder taskHolder) throws JSONException {
         //String CREATE_CONTACTS_TABLE = "create table if not exists UserRecords(owner text, message text, dateTime text, imageUrl text,withWhom text)";
-        String CREATE_CONTACTS_TABLE = "create table if not exists MoodTracker(mood text, reason text, date text, time text,attachment text,comments text)";
+        String CREATE_CONTACTS_TABLE = "create table if not exists MoodTracker(ID INTEGER PRIMARY KEY   AUTOINCREMENT, mood text, reason text, date text, time text,attachment text,comments text)";
         SQLiteDatabase dbInsert = this.getWritableDatabase();
         dbInsert.execSQL(CREATE_CONTACTS_TABLE);
         ContentValues values = new ContentValues();
@@ -79,7 +79,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<TaskHolder> getHistory() throws JSONException {
-        String CREATE_CONTACTS_TABLE = "create table if not exists MoodTracker(mood text, reason text, date text, time text,attachment text,comments text)";
+        String CREATE_CONTACTS_TABLE = "create table if not exists MoodTracker(ID INTEGER PRIMARY KEY   AUTOINCREMENT,mood text, reason text, date text, time text,attachment text,comments text)";
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(CREATE_CONTACTS_TABLE);
         ArrayList<TaskHolder> moodList = new ArrayList<TaskHolder>();
@@ -91,6 +91,7 @@ public class DbHelper extends SQLiteOpenHelper {
             do {
                 TaskHolder bean = new TaskHolder();
                 bean.setMood(cursor.getString(cursor.getColumnIndex("mood")));
+                bean.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex("ID"))));
                 JSONArray json = new JSONArray(cursor.getString(cursor.getColumnIndex("reason")));
                 List<String> arrayList = new ArrayList<>();
                 for(int i=0;i<json.length();i++){
@@ -116,5 +117,17 @@ public class DbHelper extends SQLiteOpenHelper {
         //Toast.makeText(context,"Here is "+languageList.get(0).getMessage(),Toast.LENGTH_LONG).show();
         return moodList;
     }
+    public boolean deleteItem(TaskHolder taskHolder){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int result = db.delete("MoodTracker","ID="+taskHolder.getId(),null);
+        if(result>0){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
 
 }
