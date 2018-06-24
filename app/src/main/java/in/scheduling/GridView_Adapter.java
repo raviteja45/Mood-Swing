@@ -24,9 +24,10 @@ import java.util.ArrayList;
 public class GridView_Adapter extends BaseAdapter {
     private Context context;
     private ArrayList<String> imageUrls;
-    private SparseBooleanArray mSparseBooleanArray;//Variable to store selected Images
+    private SparseBooleanArray mSparseBooleanArray;
     private DisplayImageOptions options;
-    private boolean isCustomGalleryActivity;//Variable to check if gridview is to setup for Custom Gallery or not
+    private boolean isCustomGalleryActivity;
+    private ImageView imageView;
 
     public GridView_Adapter(Context context, ArrayList<String> imageUrls, boolean isCustomGalleryActivity) {
         this.context = context;
@@ -42,7 +43,6 @@ public class GridView_Adapter extends BaseAdapter {
                 .build();
     }
 
-    //Method to return selected Images
     public ArrayList<String> getCheckedItems() {
         ArrayList<String> mTempArry = new ArrayList<String>();
 
@@ -74,36 +74,53 @@ public class GridView_Adapter extends BaseAdapter {
     public View getView(final int position, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (view == null)
-            view = inflater.inflate(R.layout.customgridview, viewGroup, false);//Inflate layout
+            view = inflater.inflate(R.layout.customgridview, viewGroup, false);
 
         CheckBox mCheckBox = (CheckBox) view.findViewById(R.id.selectCheckBox);
-        final ImageView imageView = (ImageView) view.findViewById(R.id.galleryImageView);
-
-        //If Context is MainActivity then hide checkbox
-        if (!isCustomGalleryActivity)
+         imageView = (ImageView) view.findViewById(R.id.galleryImageView);
+        //if (!isCustomGalleryActivity)
             mCheckBox.setVisibility(View.GONE);
 
-        ImageLoader.getInstance().displayImage("file://" + imageUrls.get(position), imageView, options);//Load Images over ImageView
+        ImageLoader.getInstance().displayImage("file://" + imageUrls.get(position), imageView, options);
 
-        mCheckBox.setTag(position);//Set Tag for CheckBox
+        mCheckBox.setTag(position);
         mCheckBox.setChecked(mSparseBooleanArray.get(position));
-        mCheckBox.setOnCheckedChangeListener(mCheckedChangeListener);
+      //  mCheckBox.setOnCheckedChangeListener(mCheckedChangeListener);
+        imageView.setBackgroundResource(R.drawable.imageborder);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(),"Clicked on image "+imageUrls.get(position),Toast.LENGTH_LONG).show();
+               // Toast.makeText(view.getContext(),"Clicked on image "+imageUrls.get(position),Toast.LENGTH_LONG).show();
+                System.out.println("Clciked on "+position);
+                //mSparseBooleanArray.put(position, true);
+                imageView.setBackgroundResource(R.drawable.imageborder);
+                if(mSparseBooleanArray.get(position)){
+                    mSparseBooleanArray.put(position, false);
+                }
+                else{
+                    mSparseBooleanArray.put(position, true);
+                }
+                ((Gallery) context).showSelectButton();
+
             }
         });
         return view;
     }
 
-    CompoundButton.OnCheckedChangeListener mCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
+
+   /* CompoundButton.OnCheckedChangeListener mCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            mSparseBooleanArray.put((Integer) buttonView.getTag(), isChecked);//Insert selected checkbox value inside boolean array
-            ((Gallery) context).showSelectButton();//call custom gallery activity method
+            mSparseBooleanArray.put((Integer) buttonView.getTag(), isChecked);
+            System.out.println("Button view "+buttonView.getTag());
+            ((Gallery) context).showSelectButton();
         }
-    };
+    };*/
+   /* @Override
+    public void onClick(View view) {
+        imageView.setBackgroundResource(R.drawable.imageborder);
+
+    }*/
 }
 

@@ -201,6 +201,15 @@
         android:layout_alignRight="@+id/excited"
         android:layout_alignEnd="@+id/excited" />
 
+    <Button
+        android:text="Bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/stat"
+        android:layout_alignLeft="@+id/sick"
+        android:layout_alignStart="@+id/sick"
+        android:id="@+id/bar" />
+
     <!--<TextView
         android:text="Mar 28 2018"
         android:layout_width="wrap_content"

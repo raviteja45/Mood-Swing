@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DbHelper db = null;
     ImageButton happy,sad,meh,excited,stat,sick;
     //Button date,time,stat;
-    //Button stat;
+    Button bar;
     TextView date,time;
     String dateValue;
     TaskHolder taskHolder =null;
@@ -47,6 +47,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         excited.setOnClickListener(this);
         date = (TextView) findViewById(R.id.date);
         time=(TextView)findViewById(R.id.time);
+        bar = (Button)findViewById(R.id.bar);
+        bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),Graphs.class);
+                startActivity(intent);
+            }
+        });
         stat = (ImageButton) findViewById(R.id.stat);
         sick = (ImageButton) findViewById(R.id.sick);
         sick.setOnClickListener(this);

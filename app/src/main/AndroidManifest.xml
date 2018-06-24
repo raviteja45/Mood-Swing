@@ -31,6 +31,7 @@
         <activity android:name=".Reason" android:screenOrientation="portrait"></activity>
         <activity android:name=".Stat" android:screenOrientation="portrait"></activity>
         <activity android:name=".Gallery" android:screenOrientation="portrait"></activity>
+        <activity android:name=".Graphs" android:screenOrientation="portrait"></activity>
         <activity android:name=".ImageAttachement" android:screenOrientation="portrait"></activity>
     </application>
 
